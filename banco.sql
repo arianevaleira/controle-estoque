@@ -15,7 +15,7 @@ pro_descricao varchar(255),
 pro_categoria varchar(45),
 pro_custo decimal(10,2),
 pro_preco decimal(10,2),
-pro_quantidade varchar(255)
+pro_quantidade int(255)
 );
 
 create table tb_movimentacoes(
