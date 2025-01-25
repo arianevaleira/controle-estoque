@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Sistema de Controle de Estoque</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('lista_produtos') }}">Produtos</a></li>
+                <li><a href="{{ url_for('adicionar_produto') }}">Adicionar Produto</a></li>
+                <li><a href="#">Movimentação de Estoque</a></li>
+                <li><a href="{{ url_for('relatorio') }}">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Visão Geral</h2>
+            <p>Controle e gestão do estoque de produtos de maneira fácil e eficiente.</p>
+        </section>
+    </main>
+</body>
+</html>
+
+
+
