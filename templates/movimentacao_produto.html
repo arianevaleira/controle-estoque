@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Relatórios de Estoque</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('lista_produtos') }}">Lista de Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Relatório de Movimentações</h2>
+        <form action="{{ url_for('relatorio') }}" method="POST">
+            <label for="data_inicial">Data Inicial:</label>
+            <input type="date" id="data_inicial" name="data_inicial" required>
+
+            <label for="data_final">Data Final:</label>
+            <input type="date" id="data_final" name="data_final" required>
+
+            <button type="submit">Gerar Relatório</button>
+        </form>
+        
+
+        <h3>Produtos com Estoque Baixo</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade em Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos_baixos %}
+                <tr>
+                    <td>{{ produto[0] }}</td>
+                    <td>{{ produto[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <h3>Movimentações Entre as Datas</h3>
+        {% if movimentacoes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID da Movimentação</th>
+                        <th>Produto</th>
+                        <th>Cliente</th>
+                        <th>Motivo</th>
+                        <th>Data</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movimentacao in movimentacoes %}
+                    <tr>
+                        <td>{{ movimentacao[0] }}</td>
+                        <td>{{ movimentacao[1] }}</td>
+                        <td>{{ movimentacao[2] }}</td>
+                        <td>{{ movimentacao[3] }}</td>
+                        <td>{{ movimentacao[4] }}</td>
+                        <td>{{ movimentacao[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma movimentação encontrada para este período.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

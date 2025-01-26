@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .flash-messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .flash-messages li {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .flash-messages .warning {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .flash-messages table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        .flash-messages table, .flash-messages th, .flash-messages td {
+            border: 1px solid #ddd;
+        }
+
+        .flash-messages th, .flash-messages td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .flash-messages th {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Relatórios de Estoque</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('lista_produtos') }}">Lista de Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Exibir mensagens de Flash com a tabela dentro -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">
+                            <strong>{{ message }}</strong> <!-- Mensagem de flash -->
+                            <!-- Tabela de produtos com estoque baixo -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome do Produto</th>
+                                        <th>Quantidade em Estoque</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for produto in produtos_baixos %}
+                                    <tr>
+                                        <td>{{ produto[0] }}</td>
+                                        <td>{{ produto[1] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Relatório de Movimentações</h2>
+
+        <!-- Formulário de filtro -->
+        <form action="/relatorio" method="POST">
+            <label for="data_inicial">Data Inicial:</label>
+            <input type="date" id="data_inicial" name="data_inicial" required>
+
+            <label for="data_final">Data Final:</label>
+            <input type="date" id="data_final" name="data_final" required>
+
+            <label for="filtro_categoria">Filtrar por Categoria:</label>
+            <select name="filtro_categoria" id="filtro_categoria">
+                <option value="">Todos</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria[0] }}">{{ categoria[0] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="filtro_produto">Filtrar por Produto:</label>
+            <select name="filtro_produto" id="filtro_produto">
+                <option value="">Todos</option>
+                <!-- Lista de todos os produtos para filtro -->
+                {% for produto in produtos %}
+                    <option value="{{ produto[0] }}">{{ produto[0] }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Gerar Relatório</button>
+        </form>
+
+
+        <!-- Resumo das movimentações -->
+        {% if resumo %}
+        <h3>Resumo de Movimentações</h3>
+        <ul>
+            {% for tipo, quantidade in resumo.items() %}
+            <li>{{ tipo }}: {{ quantidade }} unidades</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Exibição das movimentações -->
+        {% if movimentacoes %}
+        <h3>Movimentações Entre as Datas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID da Movimentação</th>
+                        <th>Produto</th>
+                        <th>Cliente</th>
+                        <th>Motivo</th>
+                        <th>Data</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movimentacao in movimentacoes %}
+                    <tr>
+                        <td>{{ movimentacao[0] }}</td>
+                        <td>{{ movimentacao[1] }}</td>
+                        <td>{{ movimentacao[2] }}</td>
+                        <td>{{ movimentacao[3] }}</td>
+                        <td>{{ movimentacao[4] }}</td>
+                        <td>{{ movimentacao[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>{{ mensagem }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>
