@@ -10,13 +10,13 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+    background-color: #f3e5f5; /* Fundo lilás claro */
+    color: #4a148c; /* Texto em tom roxo escuro */
     line-height: 1.6;
 }
 
 a {
-    color: #007BFF;
+    color: #7b1fa2; /* Tom lilás */
     text-decoration: none;
 }
 
@@ -29,7 +29,7 @@ a:hover {
 ------------------------------------------------*/
 
 header {
-    background-color: #333;
+    background-color: #6a1b9a; /* Lilás escuro */
     color: white;
     padding: 20px;
     text-align: center;
@@ -51,6 +51,7 @@ nav ul li {
 
 nav ul li a {
     font-size: 1.1em;
+    color: white; /* Links brancos no cabeçalho */
 }
 
 /* -----------------------------------------------
@@ -68,22 +69,29 @@ section {
 }
 
 h2 {
-    color: #333;
+    color: #4a148c; /* Título em tom lilás escuro */
     font-size: 1.8em;
     margin-bottom: 20px;
 }
 
+/* -----------------------------------------------
+   Botões
+------------------------------------------------*/
+
 button {
-    background-color: #007BFF;
+    background-color: #7b1fa2; /* Fundo lilás */
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.1em;
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Adiciona transição */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4a148c; /* Tom lilás mais escuro no hover */
+    transform: scale(1.05); /* Leve efeito de aumento */
 }
 
 /* -----------------------------------------------
@@ -91,30 +99,37 @@ button:hover {
 ------------------------------------------------*/
 
 form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px; /* Bordas mais arredondadas */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    max-width: 700px; /* Largura do formulário */
+    margin: 30px auto;
+    box-sizing: border-box;
 }
 
 form label {
     font-weight: bold;
     margin-bottom: 8px;
     display: block;
+    font-size: 1.1em; /* Aumenta o tamanho da fonte */
 }
 
 form input, form select, form button {
     width: 100%;
     padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 1em;
+    margin-bottom: 20px; /* Aumenta o espaçamento entre os campos */
+    border-radius: 8px; /* Bordas mais arredondadas */
+    border: 1px solid #ddd; /* Borda mais suave */
+    font-size: 1.1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transições para efeitos de foco */
 }
 
-form input:focus, form select:focus, form button:focus {
+form input:focus, form select:focus {
+    border-color: #7b1fa2; /* Borda lilás no foco */
     outline: none;
-    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(123, 31, 162, 0.5); /* Efeito de foco */
 }
 
 /* -----------------------------------------------
@@ -134,16 +149,16 @@ table th, table td {
 }
 
 table th {
-    background-color: #f4f4f4;
+    background-color: #e1bee7; /* Fundo lilás claro */
     font-weight: bold;
 }
 
 table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f3e5f5; /* Fundo alternado lilás */
 }
 
 table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #ede7f6; /* Fundo lilás mais claro no hover */
 }
 
 /* -----------------------------------------------
@@ -176,4 +191,23 @@ table tr:hover {
     button {
         padding: 12px;
     }
+}
+
+/* Rodapé */
+footer {
+    background-color:  #6a1b9a; /* Lilás escuro */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Pode remover se não precisar */
+
+.form_style {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
