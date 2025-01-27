@@ -42,12 +42,11 @@
                     <td>{{ produto[5] }}</td>  <!-- Acessando o 'pro_preco' pela posição 5 -->
                     <td>{{ produto[6] }}</td>  <!-- Acessando o 'pro_quantidade' pela posição 6 -->
                     <td>
-                        <a href="{{ url_for('editar_produto', id=produto[0]) }}">Editar</a> |
-                        <td>
-                            <form action="{{ url_for('excluir_produto', id=produto[0]) }}" method="POST" style="display:inline;">
-                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
-                            </form>                            
-                        </td>
+                        <a href="{{ url_for('editar_produto', id=produto[0]) }}">Editar</a> 
+                        <form action="{{ url_for('excluir_produto', id=produto[0]) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
+                        </form> 
+                        <a href="{{ url_for('movimentacao', id_produto=produto[0]) }}">Registrar Movimentação</a>  <!-- Novo link de movimentação -->
                     </td>
                 </tr>
                 {% endfor %}            
