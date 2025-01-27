@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Lista de Clientes</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('lista_produtos') }}">Lista de Produtos</a></li>
+                <li><a href="{{ url_for('adicionar_produto') }}">Adicionar Produto</a></li>
+                <li><a href="{{ url_for('lista_clientes') }}">Clientes</a></li>
+                <li><a href="{{ url_for('relatorio') }}">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Clientes Registrados</h2>
+        {% if clientes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CNPJ</th>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente[0] }}</td>
+                            <td>{{ cliente[1] }}</td>
+                            <td>{{ cliente[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Não há clientes cadastrados.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

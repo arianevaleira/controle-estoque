@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque</title>
+    <style>
+        /* Estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:#f3e5f5; /* Fundo suave lilás */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            color: #6a0dad; /* Lilás escuro */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        header {
+            background-color: #6a0dad; /* Lilás escuro */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            font-size: 1.1em;
+            color: white;
+        }
+
+        /* Layout principal */
+        main {
+            flex: 1; /* Preenche o espaço disponível */
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main section h2 {
+            color: #6a0dad;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background-color: #580a96;
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color:  #6a1b9a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: auto; /* Mantém o rodapé no final */
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Sistema de Controle de Estoque</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('lista_produtos') }}">Produtos</a></li>
+                <li><a href="{{ url_for('adicionar_produto') }}">Adicionar Produto</a></li>
+                <li><a href="{{ url_for('lista_clientes') }}">Clientes</a></li>
+                <li><a href="{{ url_for('adicionar_cliente') }}">Adicionar Cliente</a></li>
+                <li><a href="{{ url_for('relatorio') }}">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Controle e Gerencie Seu Estoque com Facilidade</h2>
+            <p>Nosso sistema oferece uma solução intuitiva e eficiente para a gestão do seu estoque. 
+                Com ferramentas avançadas, você pode monitorar produtos, registrar movimentações e gerar relatórios detalhados.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Controle de Estoque. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

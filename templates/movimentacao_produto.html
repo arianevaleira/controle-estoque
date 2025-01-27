@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimentação de Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .error {
+            color: red;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movimentação de Estoque</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('lista_produtos') }}">Lista de Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    <main>
+        <h2>Produto: {{ produto[1] }}</h2>
+
+        <form method="POST">
+            <label for="tipo">Tipo de Movimentação:</label>
+            <select name="tipo" id="tipo" onchange="toggleClienteField()">
+                <option value="entrada">Entrada</option>
+                <option value="venda">Venda</option>
+                <option value="devolucao">Devolução</option>
+            </select>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" name="quantidade" id="quantidade" required>
+
+            <!-- Para Venda e Devolução, o cliente é necessário, mas não para Entrada -->
+            <div id="clienteField">
+                <label for="cliente_id">Cliente:</label>
+                <select name="cliente_id" id="cliente_id" required>
+                    {% for cliente in clientes %}
+                        <option value="{{ cliente[0] }}">{{ cliente[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Registrar Movimentação</button>
+        </form>
+    </main>
+
+
+    <script>
+        // Função para mostrar/ocultar o campo de cliente dependendo do tipo de movimentação
+        function toggleClienteField() {
+            var tipo = document.getElementById('tipo').value;
+            var clienteField = document.getElementById('clienteField');
+            
+            if (tipo === 'entrada') {
+                clienteField.style.display = 'none'; // Oculta o campo de cliente
+            } else {
+                clienteField.style.display = 'block'; // Exibe o campo de cliente
+            }
+        }
+    
+        // Chama a função ao carregar a página para definir o estado inicial
+        window.onload = toggleClienteField;
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <style>
+        /* -----------------------------------------------
+           Estilos globais
+        ------------------------------------------------*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3e5f5; /* Fundo lilás claro */
+            color: #4a148c; /* Texto em tom roxo escuro */
+            line-height: 1.6;
+        }
+
+        a {
+            color: #7b1fa2; /* Tom lilás */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* -----------------------------------------------
+           Estilo de Cabeçalho e Navegação
+        ------------------------------------------------*/
+        header {
+            background-color: #6a1b9a; /* Lilás escuro */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            font-size: 1.1em;
+            color: white; /* Links brancos no cabeçalho */
+        }
+
+        /* -----------------------------------------------
+           Layout Principal
+        ------------------------------------------------*/
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #e1bee7; /* Fundo lilás claro */
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f3e5f5; /* Fundo alternado lilás */
+        }
+
+        table tr:hover {
+            background-color: #ede7f6; /* Fundo lilás mais claro no hover */
+        }
+
+        /* -----------------------------------------------
+           Botões
+        ------------------------------------------------*/
+        button, .btn {
+            background-color: #7b1fa2; /* Fundo lilás */
+            color: white;
+            border: none;
+            padding: 8px 15px; /* Botão menor */
+            cursor: pointer;
+            font-size: 0.9em; /* Fonte reduzida */
+            border-radius: 5px; 
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none; /* Remove sublinhado de links */
+            display: inline-block;
+            text-align: center;
+        }
+
+        button:hover, .btn:hover {
+            background-color: #4a148c; /* Tom lilás mais escuro no hover */
+            transform: scale(1.05);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            nav ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            table th, table td {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+
+            button, .btn {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lista de Produtos</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('adicionar_produto') }}">Adicionar Produto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Preço de Custo</th>
+                    <th>Preço de Venda</th>
+                    <th>Quantidade</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                    <th>Movimentação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto[0] }}</td>
+                    <td>{{ produto[1] }}</td>
+                    <td>{{ produto[2] }}</td>
+                    <td>{{ produto[3] }}</td>
+                    <td>{{ produto[4] }}</td>
+                    <td>{{ produto[5] }}</td>
+                    <td>{{ produto[6] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_produto', id=produto[0]) }}" class="btn">Editar</a>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('excluir_produto', id=produto[0]) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('movimentacao', id_produto=produto[0]) }}" class="btn">Registrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
