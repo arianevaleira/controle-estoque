@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'  # Alterar para o seu usuário MySQL
 app.config['MYSQL_PASSWORD'] = ''  # So usar se pedir
-app.config['MYSQL_DB'] = 'db_estoque'
+app.config['MYSQL_DB'] = 'db_estoque'  
 
 # Configuração do Flask
 app.config['SECRET_KEY'] = 'SUPER_DIFICIL'
@@ -135,9 +135,11 @@ def movimentacao(id_produto):
                     WHERE pro_id = %s
                 """, (quantidade, id_produto))
             else:
-                # Se o estoque não for suficiente, exibe uma mensagem de erro
+                # Mensagem amigável caso o estoque seja insuficiente
+                flash("Desculpe, o estoque é insuficiente para completar a venda. Temos apenas " +
+                      str(estoque_atual) + " unidades disponíveis.", 'error')
                 cursor.close()
-                return "Erro: Estoque insuficiente para a venda", 400
+                return redirect(url_for('movimentacao', id_produto=id_produto))
 
         # Registrar a movimentação na tabela de movimentações
         cursor.execute("""
